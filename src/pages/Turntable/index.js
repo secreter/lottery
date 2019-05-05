@@ -58,16 +58,12 @@ class Turntable extends React.Component {
               return (
                 <Fragment key={index}>
                   <div
-
                     style={style}
                     className="turntable-item-bg">
                       <div className="img-box" style={imgBoxStyle}>
                         好
                       </div>
                   </div>
-                  {/*<div className="turntable-item" style={styleInner}>*/}
-                    {/*好人*/}
-                  {/*</div>*/}
                 </Fragment>
               )
             })

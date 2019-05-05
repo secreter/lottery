@@ -5,10 +5,11 @@
   border-radius: 50%;
   overflow: hidden;
   position: relative;
-  transition: all 3s ease-in-out;
+  //transition: all 3s ease-in-out;
+  transition: all 5s cubic-bezier(0.6, 0, 0,1.02);
   //clip-path: circle(187.5px);
   &.active{
-    transform: rotate(1080deg);
+    transform: rotate(3600deg);
   }
 }
 .turntable-item-bg{
@@ -22,6 +23,9 @@
   border: solid 1px #4577dc;
   transform-origin: 0 0;
   transform: translate(50%,50%) skew(45deg) scale(0.5);
+  &:nth-child(even){
+    background: yellowgreen;
+  }
 }
 
 .turntable-item{
