@@ -5,7 +5,11 @@
   border-radius: 50%;
   overflow: hidden;
   position: relative;
+  transition: all 3s ease-in-out;
   //clip-path: circle(187.5px);
+  &.active{
+    transform: rotate(1080deg);
+  }
 }
 .turntable-item-bg{
   position: absolute;

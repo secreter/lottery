@@ -4,9 +4,14 @@ import './index.less'
 class Turntable extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-
+    this.STATUS={
+      STOP:0,
+      ROTATTING:1
     }
+    this.state = {
+      status:this.STATUS.STOP
+    }
+
     this.TOTAL=9
     this.degree=360/this.TOTAL
     this.skewDeg=90-this.degree
@@ -25,10 +30,18 @@ class Turntable extends React.Component {
     }
     this.sectors[index]={dom:ref}
   }
+  start=()=>{
+    this.setState({
+      status:this.STATUS.ROTATTING
+    })
+  }
   render(){
+    const {status}=this.state
     return (
       <div>
-        <div className="turntable">
+        <div
+          onClick={this.start}
+          className={`turntable ${status===this.STATUS.ROTATTING?'active':''}`}>
           {
             this.sectors.map((sector,index)=>{
 
