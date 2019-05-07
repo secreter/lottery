@@ -9,7 +9,8 @@ class Turntable extends React.Component {
       ROTATTING:1
     }
     this.state = {
-      status:this.STATUS.STOP
+      status:this.STATUS.STOP,
+      rotateDegree:0
     }
 
     this.TOTAL=10
@@ -20,7 +21,15 @@ class Turntable extends React.Component {
     this.skewDeg=90-this.degree
     this.textRadius=0.5*this.radius //文字的上边到圆心的距离
     this.textBlockHeight=24 //文字块高度
-    this.sectors=new Array(this.TOTAL).fill(Object.create({}))
+    this.sectors=new Array(this.TOTAL).fill(true).map(_=>({})) //{dom,rotateDegree}
+    this.init()
+  }
+
+  getTurntableStyle=()=>{
+    return {
+      //居然和顺序有关
+      transform: `rotate(${this.state.rotateDegree}deg)`
+    }
   }
   getTurntableItemStyle=(index)=>{
     return {
@@ -38,19 +47,24 @@ class Turntable extends React.Component {
     }
   }
   componentDidMount () {
-    this.init()
+
   }
 
   init(){
 
   }
+  rotate=(deg=3600)=>{
+    const {rotateDegree}=this.state
+    this.setState({rotateDegree:rotateDegree+deg})
+  }
   bindDom=(index,ref)=>{
-    if(!ref||this.sectors[index]){
+    if(!ref||this.sectors[index].dom){
       return
     }
     this.sectors[index]={dom:ref}
   }
   start=()=>{
+    this.rotate()
     this.setState({
       status:this.STATUS.ROTATTING
     })
@@ -59,35 +73,28 @@ class Turntable extends React.Component {
     const {status}=this.state
     return (
       <div>
-        <div
-          onClick={this.start}
-          className={`turntable ${status===this.STATUS.ROTATTING?'active':''}`}>
-          {
-            this.sectors.map((sector,index)=>{
-
-              let style={
-                //居然和顺序有关
-                // transfororm: `translate(50%,50%) rotate(${this.degree*index}deg) skew(${this.skewDeg}deg)`
-              }
-              let styleInner={
-                // transform:`translate(50%,50%) rotate(${this.degree*0}deg) skew(-0deg)`
-              }
-              let imgBoxStyle={
-                // transform:`skew(-${this.skewDeg}deg) rotate(${this.degree/2+90}deg) translate(-${Math.tan(this.degree/2*Math.PI/180)*70}px,-100px)`
-              }
-              return (
-                <Fragment key={index}>
-                  <div
-                    style={this.getTurntableItemStyle(index)}
-                    className="turntable-item">
+        <div className="turntable-wrap">
+          <div className="turntable-point"/>
+          <div
+            onClick={this.start}
+            style={this.getTurntableStyle()}
+            className={`turntable ${status===this.STATUS.ROTATTING?'':''}`}>
+            {
+              this.sectors.map((sector,index)=>{
+                return (
+                  <Fragment key={index}>
+                    <div
+                      style={this.getTurntableItemStyle(index)}
+                      className="turntable-item">
                       <div className="turntable-item-text" style={this.getTurntableItemTextStyle(index)}>
                         好
                       </div>
-                  </div>
-                </Fragment>
-              )
-            })
-          }
+                    </div>
+                  </Fragment>
+                )
+              })
+            }
+          </div>
         </div>
       </div>
     )

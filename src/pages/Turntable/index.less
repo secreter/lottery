@@ -1,16 +1,22 @@
-.turntable{
+.turntable-wrap{
   width: 375px;
   height: 375px;
   background: #798;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
+}
+.turntable{
+  width: 100%;
+  height: 100%;
+
+  position: relative;
   //transition: all 3s ease-in-out;
   transition: all 8s cubic-bezier(0.6, 0, 0,1.02);
   //clip-path: circle(187.5px);
-  &.active{
-    transform: rotate(3600deg);
-  }
+  //&.active{
+  //  transform: rotate(3600deg);
+  //}
 }
 .turntable-item{
   position: absolute;
@@ -29,6 +35,30 @@
   }
 }
 
+.turntable-point{
+  position: absolute;
+  top:50%;
+  left: 50%;
+  background: #952728;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  &::before{
+    display: block;
+    content: '';
+    width: 0;
+    height: 0;
+    margin-top: -100%;
+    border-style: solid;
+    border-width: 0 10px 60px 10px;
+    border-color: transparent transparent #007bff transparent;
+
+  }
+}
 //.turntable-item{
 //  position: absolute;
 //  top:0;
